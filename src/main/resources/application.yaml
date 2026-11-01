@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: test-API
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testapi
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-ttl-minutes: 15
+    refresh-ttl-days: 7
