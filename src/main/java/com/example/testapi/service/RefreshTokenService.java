@@ -32,7 +32,7 @@ public class RefreshTokenService {
         this.ttlDays = ttlDays;
     }
 
-    public record Rotated(Users user, String newRefreshToken) {}
+    public record Rotated(String email, String newRefreshToken) {}
 
     @Transactional
     public String create(Users user) {
@@ -64,8 +64,10 @@ public class RefreshTokenService {
         }
 
         old.setRevoked(true);                       // one-time use
-        String fresh = create(old.getUser());       // issue a replacement
-        return new Rotated(old.getUser(), fresh);
+        Users user = old.getUser();
+        String fresh = create(user);
+        log.info("user is {}", user.getEmail());
+        return new Rotated(user.getEmail(), fresh);
     }
 
     @Transactional

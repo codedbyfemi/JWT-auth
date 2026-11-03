@@ -46,7 +46,7 @@ public class AuthService {
     public AuthResponse refresh(String rawRefreshToken) {
         var rotated = refreshTokens.rotate(rawRefreshToken);
         return new AuthResponse(
-                jwt.generateAccessToken(rotated.user().getEmail()),
+                jwt.generateAccessToken(rotated.email()),
                 rotated.newRefreshToken());
     }
 
